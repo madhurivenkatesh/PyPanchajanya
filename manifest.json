@@ -1,0 +1,52 @@
+{
+  "sets": [
+    {
+      "id": "input-output",
+      "title": "Input/Output and Arithmetic",
+      "icon": "\ud83d\udd22",
+      "description": "Read input, do arithmetic, print results.",
+      "file": "sets/input-output.json",
+      "count": 5
+    },
+    {
+      "id": "conditionals",
+      "title": "Conditionals",
+      "icon": "\ud83d\udd00",
+      "description": "if / elif / else decision making.",
+      "file": "sets/conditionals.json",
+      "count": 1
+    },
+    {
+      "id": "loops",
+      "title": "Loops",
+      "icon": "\ud83d\udd01",
+      "description": "for / while loops and patterns.",
+      "file": "sets/loops.json",
+      "count": 3
+    },
+    {
+      "id": "strings",
+      "title": "Strings",
+      "icon": "\ud83d\udd24",
+      "description": "Working with text.",
+      "file": "sets/strings.json",
+      "count": 2
+    },
+    {
+      "id": "lists",
+      "title": "Lists",
+      "icon": "\ud83d\udccb",
+      "description": "Arrays and list algorithms.",
+      "file": "sets/lists.json",
+      "count": 2
+    },
+    {
+      "id": "misc-1",
+      "title": "Misc. Problem Set 1",
+      "icon": "\ud83c\udfb2",
+      "description": "A grab-bag of extra challenges.",
+      "file": "sets/misc-1.json",
+      "count": 1
+    }
+  ]
+}

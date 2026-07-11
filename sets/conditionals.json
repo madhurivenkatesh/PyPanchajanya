@@ -1,0 +1,73 @@
+{
+  "id": "conditionals",
+  "title": "Conditionals",
+  "problems": [
+    {
+      "id": "keshava-madhava",
+      "title": "Keshava-Madhava",
+      "belt": "white",
+      "mode": "function",
+      "functionName": "keshava_madhava",
+      "statement": "Our version of the classic Fizz-Buzz. Given a number <code>n</code>, return a list of strings for 1 to n. For multiples of 4 use <code>\"Keshava\"</code>, for multiples of 5 use <code>\"Madhava\"</code>, for multiples of both 4 and 5 use <code>\"Keshava-Madhava\"</code>, and otherwise use the number itself as a string.",
+      "examples": [
+        {
+          "input": "n = 5",
+          "output": "[\"1\", \"2\", \"3\", \"Keshava\", \"Madhava\"]"
+        }
+      ],
+      "constraints": [
+        "1 &le; n &le; 1000"
+      ],
+      "starterCode": "def keshava_madhava(n):\n    # Return a list of strings for 1..n following the rules above.\n    pass\n",
+      "testCases": [
+        {
+          "args": [
+            5
+          ],
+          "expected": [
+            "1",
+            "2",
+            "3",
+            "Keshava",
+            "Madhava"
+          ]
+        },
+        {
+          "args": [
+            20
+          ],
+          "expected": [
+            "1",
+            "2",
+            "3",
+            "Keshava",
+            "Madhava",
+            "6",
+            "7",
+            "Keshava",
+            "9",
+            "Madhava",
+            "11",
+            "Keshava",
+            "13",
+            "14",
+            "Madhava",
+            "Keshava",
+            "17",
+            "18",
+            "19",
+            "Keshava-Madhava"
+          ]
+        },
+        {
+          "args": [
+            1
+          ],
+          "expected": [
+            "1"
+          ]
+        }
+      ]
+    }
+  ]
+}

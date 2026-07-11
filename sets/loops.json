@@ -1,0 +1,126 @@
+{
+  "id": "loops",
+  "title": "Loops",
+  "problems": [
+    {
+      "id": "print-evens",
+      "title": "Print the Evens",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Read two integers, <code>start</code> and <code>end</code> (one per line), and print all even integers from start to end, both included, separated by single spaces on one line. If there are none, print nothing.",
+      "examples": [
+        {
+          "input": "1\n10",
+          "output": "2 4 6 8 10"
+        }
+      ],
+      "constraints": [
+        "Exact spacing between numbers doesn't matter &mdash; we just check the numbers you print, in order."
+      ],
+      "starterCode": "start = int(input())\nend = int(input())\n# print all even numbers from start to end, inclusive\n",
+      "testCases": [
+        {
+          "stdin": [
+            "1",
+            "10"
+          ],
+          "expectedOutput": "2 4 6 8 10"
+        },
+        {
+          "stdin": [
+            "2",
+            "2"
+          ],
+          "expectedOutput": "2"
+        },
+        {
+          "stdin": [
+            "5",
+            "5"
+          ],
+          "expectedOutput": ""
+        }
+      ]
+    },
+    {
+      "id": "stars-in-our-eyes",
+      "title": "Stars in Our Eyes",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Read an integer <code>n</code> and print <code>n</code> lines. Line <code>i</code> (starting at 1) should contain <code>i</code> stars separated by spaces.",
+      "examples": [
+        {
+          "input": "1",
+          "output": "*"
+        },
+        {
+          "input": "2",
+          "output": "*\n* *"
+        }
+      ],
+      "constraints": [
+        "1 &le; n &le; 20",
+        "Exact spacing doesn't matter &mdash; we check the stars on each line, in order."
+      ],
+      "starterCode": "n = int(input())\n# print the pattern described above\n",
+      "testCases": [
+        {
+          "stdin": [
+            "1"
+          ],
+          "expectedOutput": "*"
+        },
+        {
+          "stdin": [
+            "2"
+          ],
+          "expectedOutput": "*\n* *"
+        },
+        {
+          "stdin": [
+            "3"
+          ],
+          "expectedOutput": "*\n* *\n* * *"
+        }
+      ]
+    },
+    {
+      "id": "triangle-magic",
+      "title": "Triangle Magic",
+      "belt": "yellow",
+      "mode": "stdio",
+      "statement": "Read an integer <code>n</code> and print a number triangle: row <code>i</code> (starting at 1) contains the number <code>i</code> repeated <code>i</code> times.",
+      "examples": [
+        {
+          "input": "3",
+          "output": "1\n2 2\n3 3 3"
+        }
+      ],
+      "constraints": [
+        "1 &le; n &le; 20",
+        "Exact spacing/indentation doesn't matter &mdash; we only check the numbers on each line, in order."
+      ],
+      "starterCode": "n = int(input())\n# print the number triangle described above\n",
+      "testCases": [
+        {
+          "stdin": [
+            "3"
+          ],
+          "expectedOutput": "1\n2 2\n3 3 3"
+        },
+        {
+          "stdin": [
+            "1"
+          ],
+          "expectedOutput": "1"
+        },
+        {
+          "stdin": [
+            "4"
+          ],
+          "expectedOutput": "1\n2 2\n3 3 3\n4 4 4 4"
+        }
+      ]
+    }
+  ]
+}

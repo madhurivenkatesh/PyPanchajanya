@@ -1,0 +1,65 @@
+{
+  "id": "misc-1",
+  "title": "Misc. Problem Set 1",
+  "problems": [
+    {
+      "id": "binary-search",
+      "title": "Binary Search",
+      "belt": "black",
+      "mode": "function",
+      "functionName": "binary_search",
+      "statement": "Given a sorted list <code>nums</code> and a value <code>target</code>, return the index of target in nums, or <code>-1</code> if it isn't present. Do it in O(log n) time, not with a plain linear scan.",
+      "examples": [
+        {
+          "input": "nums = [1, 3, 5, 7, 9, 11], target = 7",
+          "output": "3"
+        },
+        {
+          "input": "nums = [1, 2, 3], target = 5",
+          "output": "-1"
+        }
+      ],
+      "constraints": [
+        "nums is sorted ascending",
+        "1 &le; length of nums &le; 10<sup>5</sup>"
+      ],
+      "starterCode": "def binary_search(nums, target):\n    # Return the index of target in the sorted list nums, or -1.\n    pass\n",
+      "testCases": [
+        {
+          "args": [
+            [
+              1,
+              3,
+              5,
+              7,
+              9,
+              11
+            ],
+            7
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            5
+          ],
+          "expected": -1
+        },
+        {
+          "args": [
+            [
+              1
+            ],
+            1
+          ],
+          "expected": 0
+        }
+      ]
+    }
+  ]
+}

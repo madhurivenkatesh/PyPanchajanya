@@ -1,0 +1,205 @@
+{
+  "id": "input-output",
+  "title": "Input/Output and Arithmetic",
+  "problems": [
+    {
+      "id": "greet-name",
+      "title": "Jaya Shree Rama!",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Read a name from input and print a greeting in the exact form <code>Jaya Shree Rama, name!</code>",
+      "examples": [
+        {
+          "input": "Hari",
+          "output": "Jaya Shree Rama, Hari!"
+        }
+      ],
+      "constraints": [
+        "The name is a single line with no spaces."
+      ],
+      "starterCode": "name = input()\n# print the greeting here\n",
+      "testCases": [
+        {
+          "stdin": [
+            "Hari"
+          ],
+          "expectedOutput": "Jaya Shree Rama, Hari!"
+        },
+        {
+          "stdin": [
+            "Gita"
+          ],
+          "expectedOutput": "Jaya Shree Rama, Gita!"
+        },
+        {
+          "stdin": [
+            "Arjun"
+          ],
+          "expectedOutput": "Jaya Shree Rama, Arjun!"
+        }
+      ]
+    },
+    {
+      "id": "sum-two-numbers",
+      "title": "Sum of Two Numbers",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Read two numbers, one per line, and print their sum.",
+      "examples": [
+        {
+          "input": "3\n5",
+          "output": "8"
+        }
+      ],
+      "constraints": [
+        "Both inputs are whole numbers (integers)."
+      ],
+      "starterCode": "a = int(input())\nb = int(input())\n# print the sum here\n",
+      "testCases": [
+        {
+          "stdin": [
+            "3",
+            "5"
+          ],
+          "expectedOutput": "8"
+        },
+        {
+          "stdin": [
+            "10",
+            "20"
+          ],
+          "expectedOutput": "30"
+        },
+        {
+          "stdin": [
+            "-2",
+            "5"
+          ],
+          "expectedOutput": "3"
+        }
+      ]
+    },
+    {
+      "id": "multiply-by-5",
+      "title": "Times Five",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Read a number and print that number multiplied by 5.",
+      "examples": [
+        {
+          "input": "4",
+          "output": "20"
+        }
+      ],
+      "constraints": [
+        "The input is a whole number (integer)."
+      ],
+      "starterCode": "n = int(input())\n# print n * 5 here\n",
+      "testCases": [
+        {
+          "stdin": [
+            "4"
+          ],
+          "expectedOutput": "20"
+        },
+        {
+          "stdin": [
+            "0"
+          ],
+          "expectedOutput": "0"
+        },
+        {
+          "stdin": [
+            "-3"
+          ],
+          "expectedOutput": "-15"
+        }
+      ]
+    },
+    {
+      "id": "supplementary-angle",
+      "title": "Supplementary Angle",
+      "belt": "yellow",
+      "mode": "stdio",
+      "statement": "Read an angle in degrees and print its supplementary angle. Two angles are supplementary when they add up to 180&deg;, so the answer is <code>180 - angle</code>.",
+      "examples": [
+        {
+          "input": "60",
+          "output": "120",
+          "note": "60 + 120 = 180"
+        }
+      ],
+      "constraints": [
+        "0 &le; angle &le; 180"
+      ],
+      "starterCode": "angle = int(input())\n# print the supplementary angle here\n",
+      "testCases": [
+        {
+          "stdin": [
+            "60"
+          ],
+          "expectedOutput": "120"
+        },
+        {
+          "stdin": [
+            "90"
+          ],
+          "expectedOutput": "90"
+        },
+        {
+          "stdin": [
+            "170"
+          ],
+          "expectedOutput": "10"
+        }
+      ]
+    },
+    {
+      "id": "right-triangle-check",
+      "title": "Right-Angled or Not?",
+      "belt": "yellow",
+      "mode": "stdio",
+      "statement": "Read three whole numbers, the lengths of the three sides of a triangle (one per line, in any order). Print <code>True</code> if they form a right-angled triangle, and <code>False</code> otherwise. Tip: the sides might not be given with the longest one last &mdash; you may need to sort them first.",
+      "examples": [
+        {
+          "input": "3\n4\n5",
+          "output": "True"
+        },
+        {
+          "input": "3\n4\n6",
+          "output": "False"
+        }
+      ],
+      "constraints": [
+        "All three sides are positive integers."
+      ],
+      "starterCode": "a = int(input())\nb = int(input())\nc = int(input())\n# print True or False here\n",
+      "testCases": [
+        {
+          "stdin": [
+            "3",
+            "4",
+            "5"
+          ],
+          "expectedOutput": "True"
+        },
+        {
+          "stdin": [
+            "3",
+            "4",
+            "6"
+          ],
+          "expectedOutput": "False"
+        },
+        {
+          "stdin": [
+            "6",
+            "8",
+            "10"
+          ],
+          "expectedOutput": "True"
+        }
+      ]
+    }
+  ]
+}

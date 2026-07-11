@@ -1,0 +1,95 @@
+{
+  "id": "strings",
+  "title": "Strings",
+  "problems": [
+    {
+      "id": "reverse-string",
+      "title": "Reverse a String",
+      "belt": "white",
+      "mode": "function",
+      "functionName": "reverse_string",
+      "statement": "Write a function that takes a string <code>s</code> and returns it reversed.",
+      "examples": [
+        {
+          "input": "s = \"hello\"",
+          "output": "\"olleh\""
+        },
+        {
+          "input": "s = \"Python\"",
+          "output": "\"nohtyP\""
+        }
+      ],
+      "constraints": [
+        "0 &le; length of s &le; 10<sup>4</sup>"
+      ],
+      "starterCode": "def reverse_string(s):\n    # Return s reversed.\n    pass\n",
+      "testCases": [
+        {
+          "args": [
+            "hello"
+          ],
+          "expected": "olleh"
+        },
+        {
+          "args": [
+            "Python"
+          ],
+          "expected": "nohtyP"
+        },
+        {
+          "args": [
+            ""
+          ],
+          "expected": ""
+        }
+      ]
+    },
+    {
+      "id": "palindrome",
+      "title": "Palindrome Checker",
+      "belt": "yellow",
+      "mode": "function",
+      "functionName": "is_palindrome",
+      "statement": "Write a function that checks whether a string is a palindrome, ignoring letter case and spaces. Return <code>True</code> or <code>False</code>.",
+      "examples": [
+        {
+          "input": "s = \"racecar\"",
+          "output": "True"
+        },
+        {
+          "input": "s = \"A man a plan a canal Panama\"",
+          "output": "True",
+          "note": "Case and spaces are ignored"
+        },
+        {
+          "input": "s = \"hello\"",
+          "output": "False"
+        }
+      ],
+      "constraints": [
+        "0 &le; length of s &le; 10<sup>4</sup>"
+      ],
+      "starterCode": "def is_palindrome(s):\n    # Return True if s reads the same forwards and backwards,\n    # ignoring case and spaces.\n    pass\n",
+      "testCases": [
+        {
+          "args": [
+            "racecar"
+          ],
+          "expected": true
+        },
+        {
+          "args": [
+            "hello"
+          ],
+          "expected": false
+        },
+        {
+          "args": [
+            "A man a plan a canal Panama"
+          ],
+          "expected": true
+        }
+      ]
+    }
+  ]
+}

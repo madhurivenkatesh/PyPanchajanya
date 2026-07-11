@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Py Panchajanya</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg-app:#0B0E1A;
+    --console-bg:#10162B;
+    --console-bg-alt:#161D38;
+    --console-border:#262E52;
+    --paper-bg:#EDEEF3;
+    --paper-bg-alt:#E3E5EF;
+    --paper-border:#CBCEDD;
+    --ink:#1B1E2E;
+    --ink-soft:#565B78;
+    --text-c:#E7E9F5;
+    --text-c-soft:#9AA0C4;
+    --accent:#6C5CE7;
+    --accent-soft:#8A7DF0;
+    --success:#2DD4BF;
+    --fail:#FB7185;
+    --belt-white:#D8D9E4;
+    --belt-yellow:#FBBF24;
+    --belt-black:#3A3F5C;
+    --shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  html[data-theme="light"]{
+    --bg-app:#F3F4FA;
+    --console-bg:#FFFFFF;
+    --console-bg-alt:#F0F1F8;
+    --console-border:#DEE0EE;
+    --paper-bg:#FBF8F1;
+    --paper-bg-alt:#F1ECDE;
+    --paper-border:#E1DAC5;
+    --ink:#1B1E2E;
+    --ink-soft:#5B5F78;
+    --text-c:#1E2133;
+    --text-c-soft:#666B8A;
+    --accent:#6C5CE7;
+    --accent-soft:#5A4CD1;
+    --success:#0F9C8C;
+    --fail:#E11D48;
+    --belt-white:#B9BCCF;
+    --belt-yellow:#D97706;
+    --belt-black:#2B2F47;
+    --shadow: 0 8px 24px rgba(30,33,60,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--bg-app);
+    color:var(--text-c);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+    transition:background .2s ease, color .2s ease;
+  }
+
+  /* ---------- Banner ---------- */
+  .banner-wrap{
+    background:var(--console-bg);
+    border-bottom:1px solid var(--console-border);
+  }
+  .banner-svg{ display:block; width:100%; height:auto; max-height:150px; }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 24px;
+    background:var(--console-bg);
+    border-bottom:1px solid var(--console-border);
+    flex-shrink:0;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:20px;
+    margin:0;
+    letter-spacing:0.2px;
+    background:linear-gradient(90deg,var(--accent),#FF8A5B);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .brand span{
+    color:var(--text-c-soft);
+    font-size:12px;
+    display:block;
+    margin-top:1px;
+  }
+  .header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .nav-tabs{ display:flex; gap:4px; background:var(--console-bg-alt); padding:4px; border-radius:9px; border:1px solid var(--console-border); }
+  .nav-tab{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    padding:7px 13px;
+    border-radius:7px;
+    cursor:pointer;
+    color:var(--text-c-soft);
+    background:transparent;
+    border:none;
+  }
+  .nav-tab.active{ background:var(--accent); color:white; }
+  .theme-toggle{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--console-bg-alt);
+    border:1px solid var(--console-border);
+    border-radius:999px;
+    padding:6px 12px;
+    cursor:pointer;
+    font-size:13px;
+    color:var(--text-c);
+    font-weight:600;
+  }
+  .progress-pill{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--console-bg-alt);
+    border:1px solid var(--console-border);
+    border-radius:999px;
+    padding:6px 16px 6px 6px;
+    font-size:13px;
+  }
+  .progress-pill .ring{
+    width:26px;height:26px;
+    border-radius:50%;
+    background:conic-gradient(var(--success) calc(var(--pct,0)*1%), var(--console-border) 0);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .progress-pill .ring::after{
+    content:"";
+    width:18px;height:18px;
+    border-radius:50%;
+    background:var(--console-bg-alt);
+  }
+  .progress-pill b{color:var(--text-c);}
+
+  /* ---------- Views ---------- */
+  .view{ flex:1; min-height:0; display:none; }
+  .view.active{ display:flex; flex-direction:column; }
+
+  /* ---------- Sets grid (landing) ---------- */
+  #view-sets{ padding:32px 24px; overflow-y:auto; align-items:flex-start; }
+  .sets-intro{ max-width:760px; margin:0 auto 26px; text-align:center; }
+  .sets-intro h2{ font-family:'Space Grotesk',sans-serif; font-size:22px; margin:0 0 8px; }
+  .sets-intro p{ color:var(--text-c-soft); font-size:14px; line-height:1.6; margin:0; }
+  .sets-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto;
+    width:100%;
+  }
+  .set-card{
+    background:var(--console-bg);
+    border:1px solid var(--console-border);
+    border-radius:14px;
+    padding:20px;
+    cursor:pointer;
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  .set-card:hover{ transform:translateY(-3px); border-color:var(--accent); }
+  .set-card .icon{ font-size:28px; margin-bottom:10px; display:block; }
+  .set-card h3{ font-family:'Space Grotesk',sans-serif; font-size:16px; margin:0 0 6px; }
+  .set-card p{ color:var(--text-c-soft); font-size:13px; line-height:1.5; margin:0 0 12px; }
+  .set-card .count{ font-size:11.5px; color:var(--accent-soft); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+
+  /* ---------- Workspace ---------- */
+  #view-workspace{ flex-direction:row; min-height:0; }
+  .app-grid{
+    display:grid;
+    grid-template-columns:250px 1fr 1fr;
+    flex:1;
+    min-height:0;
+    width:100%;
+  }
+
+  .sidebar{
+    background:var(--console-bg);
+    border-right:1px solid var(--console-border);
+    overflow-y:auto;
+    padding:14px 10px;
+    display:flex;
+    flex-direction:column;
+  }
+  .back-link{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--text-c-soft);
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    padding:6px 8px 14px;
+    border-bottom:1px solid var(--console-border);
+    margin-bottom:10px;
+  }
+  .back-link:hover{ color:var(--accent-soft); }
+  .sidebar h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    color:var(--text-c-soft);
+    margin:6px 10px 10px;
+  }
+  .problem-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:2px;
+    border:1px solid transparent;
+  }
+  .problem-item:hover{background:var(--console-bg-alt);}
+  .problem-item.active{
+    background:var(--console-bg-alt);
+    border-color:var(--accent);
+  }
+  .belt-tag{
+    width:8px;height:8px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .belt-tag.white{background:var(--belt-white);}
+  .belt-tag.yellow{background:var(--belt-yellow);}
+  .belt-tag.black{background:var(--belt-black); box-shadow:0 0 0 1px #6a6f96 inset;}
+  .problem-item .name{ font-size:13.5px; flex:1; color:var(--text-c); }
+  .problem-item .check{ font-size:12px; color:var(--success); opacity:0; }
+  .problem-item.solved .check{opacity:1;}
+
+  .problem-panel{
+    background:var(--paper-bg);
+    color:var(--ink);
+    overflow-y:auto;
+    padding:28px 32px;
+    border-right:1px solid var(--console-border);
+  }
+  .belt-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px;
+    padding:4px 10px; border-radius:999px; margin-bottom:14px;
+  }
+  .belt-badge.white{background:#fff; color:#7A7E96; border:1px solid var(--paper-border);}
+  .belt-badge.yellow{background:#FEF3C7; color:#92650A;}
+  .belt-badge.black{background:#2B2F47; color:#EDEEF3;}
+  .problem-panel h2{ font-family:'Space Grotesk',sans-serif; font-size:24px; margin:0 0 14px; }
+  .problem-panel p{ line-height:1.65; font-size:14.5px; color:var(--ink); margin:0 0 16px; }
+  .problem-panel h3{
+    font-family:'Space Grotesk',sans-serif; font-size:13px; text-transform:uppercase;
+    letter-spacing:0.8px; color:var(--ink-soft); margin:22px 0 10px;
+  }
+  .example-card{
+    background:var(--paper-bg-alt); border:1px solid var(--paper-border); border-radius:10px;
+    padding:12px 14px; margin-bottom:10px; font-family:'JetBrains Mono',monospace; font-size:12.8px; line-height:1.7;
+  }
+  .example-card .lbl{color:var(--ink-soft); font-family:'Inter',sans-serif; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px;}
+  .constraints{ margin:0; padding-left:18px; font-size:13.5px; line-height:1.8; color:var(--ink-soft); }
+
+  .editor-panel{ display:flex; flex-direction:column; min-height:0; background:var(--console-bg); }
+  .editor-toolbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 16px; border-bottom:1px solid var(--console-border); flex-shrink:0;
+  }
+  .editor-toolbar .fname{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-c-soft); }
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13px; border:none;
+    border-radius:7px; padding:8px 16px; cursor:pointer; transition:transform .06s ease, opacity .15s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-run{ background:var(--accent); color:white; }
+  .btn-run:disabled{opacity:0.5; cursor:wait;}
+  .btn-ghost{ background:transparent; color:var(--text-c-soft); border:1px solid var(--console-border); margin-right:8px; }
+  .btn-row{display:flex; align-items:center;}
+  .CodeMirror{ flex:1; height:auto !important; font-family:'JetBrains Mono',monospace; font-size:13.5px; line-height:1.6; }
+
+  .console{
+    height:36%; min-height:150px; border-top:1px solid var(--console-border);
+    background:var(--bg-app); overflow-y:auto; padding:14px 16px;
+    font-family:'JetBrains Mono',monospace; font-size:12.8px; flex-shrink:0;
+  }
+  .console-head{
+    display:flex; align-items:center; gap:8px; color:var(--text-c-soft); font-size:11px;
+    text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;
+  }
+  .cursor-blink{ display:inline-block; width:7px; height:13px; background:var(--success); animation:blink 1s step-end infinite; }
+  @keyframes blink{ 50%{opacity:0;} }
+  .test-row{ display:flex; align-items:flex-start; gap:8px; padding:7px 0; border-bottom:1px dashed var(--console-border); }
+  .test-row:last-child{border-bottom:none;}
+  .test-icon{flex-shrink:0; font-weight:700; width:16px;}
+  .test-icon.pass{color:var(--success);}
+  .test-icon.fail{color:var(--fail);}
+  .test-detail{color:var(--text-c-soft); flex:1;}
+  .test-detail b{color:var(--text-c); font-weight:600;}
+  .test-detail .diff{color:var(--fail); margin-top:2px; white-space:pre-wrap;}
+  .console-empty{color:var(--text-c-soft);}
+  .console-error{
+    color:var(--fail); white-space:pre-wrap; background:rgba(251,113,133,0.08);
+    border:1px solid rgba(251,113,133,0.3); border-radius:6px; padding:10px 12px; margin-top:6px;
+  }
+  .summary-line{ margin-top:10px; padding-top:10px; border-top:1px solid var(--console-border); font-weight:600; }
+  .summary-line.pass{color:var(--success);}
+  .summary-line.fail{color:var(--fail);}
+
+  /* ---------- Create-a-problem view ---------- */
+  #view-create{ padding:28px 24px; overflow-y:auto; align-items:center; }
+  .create-wrap{ max-width:760px; width:100%; margin:0 auto; }
+  .create-wrap h2{ font-family:'Space Grotesk',sans-serif; font-size:22px; margin:0 0 6px; }
+  .create-wrap > p{ color:var(--text-c-soft); font-size:13.5px; line-height:1.6; margin:0 0 22px; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:12.5px; font-weight:600; color:var(--text-c-soft); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.4px; }
+  .field textarea, .field select, .field input{
+    width:100%; background:var(--console-bg); border:1px solid var(--console-border); border-radius:9px;
+    color:var(--text-c); font-family:'Inter',sans-serif; font-size:13.5px; padding:10px 12px; resize:vertical;
+  }
+  .field textarea{ font-family:'JetBrains Mono',monospace; font-size:13px; min-height:90px; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .output-box{
+    background:var(--console-bg); border:1px solid var(--console-border); border-radius:9px; padding:14px;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; white-space:pre-wrap; min-height:60px; margin-top:8px;
+    max-height:420px; overflow-y:auto;
+  }
+  .create-note{
+    background:var(--paper-bg); color:var(--ink); border:1px solid var(--paper-border); border-radius:10px;
+    padding:14px 16px; font-size:13px; line-height:1.6; margin-top:20px;
+  }
+
+  ::-webkit-scrollbar{width:9px; height:9px;}
+  ::-webkit-scrollbar-thumb{background:var(--console-border); border-radius:5px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+
+  @media (max-width: 980px){
+    .app-grid{grid-template-columns:1fr; grid-auto-rows:auto;}
+    .sidebar{max-height:180px;}
+    .problem-panel{border-right:none; border-bottom:1px solid var(--console-border);}
+    .field-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner-wrap">
+<svg class="banner-svg" viewBox="0 0 1200 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2B1B4A"/>
+      <stop offset="45%" stop-color="#5B3B78"/>
+      <stop offset="75%" stop-color="#D9793F"/>
+      <stop offset="100%" stop-color="#F4A84A"/>
+    </linearGradient>
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE8B8"/>
+      <stop offset="55%" stop-color="#FBC26B"/>
+      <stop offset="100%" stop-color="#F4A84A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="figLeft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A2A55"/>
+      <stop offset="100%" stop-color="#1C1430"/>
+    </linearGradient>
+    <linearGradient id="figRight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E4C82"/>
+      <stop offset="100%" stop-color="#152538"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="220" fill="url(#skyGrad)"/>
+
+  <!-- sun / chakra disc -->
+  <circle cx="600" cy="118" r="98" fill="url(#sunGrad)"/>
+  <g stroke="#FFE8B8" stroke-width="1.4" opacity="0.55">
+    <circle cx="600" cy="118" r="54" fill="none"/>
+    <g id="spokes">
+      <line x1="600" y1="64" x2="600" y2="172"/>
+    </g>
+  </g>
+  <use href="#spokes" transform="rotate(15 600 118)"/>
+  <use href="#spokes" transform="rotate(30 600 118)"/>
+  <use href="#spokes" transform="rotate(45 600 118)"/>
+  <use href="#spokes" transform="rotate(60 600 118)"/>
+  <use href="#spokes" transform="rotate(75 600 118)"/>
+  <use href="#spokes" transform="rotate(90 600 118)"/>
+  <use href="#spokes" transform="rotate(105 600 118)"/>
+  <use href="#spokes" transform="rotate(120 600 118)"/>
+  <use href="#spokes" transform="rotate(135 600 118)"/>
+  <use href="#spokes" transform="rotate(150 600 118)"/>
+  <use href="#spokes" transform="rotate(165 600 118)"/>
+
+  <!-- distant hills -->
+  <path d="M0,180 Q120,150 260,175 T560,170 T900,178 T1200,165 V220 H0 Z" fill="#1C1430" opacity="0.55"/>
+
+  <!-- sound wave arcs from both conches, meeting near center -->
+  <g stroke="#FFE8B8" stroke-width="2.5" fill="none" opacity="0.85">
+    <path d="M470,132 Q500,120 470,108"/>
+    <path d="M490,138 Q530,120 490,102"/>
+    <path d="M730,132 Q700,120 730,108"/>
+    <path d="M710,138 Q670,120 710,102"/>
+  </g>
+
+  <!-- LEFT FIGURE: Arjuna, warrior silhouette blowing a conch -->
+  <g transform="translate(330,30)">
+    <!-- headband / turban -->
+    <path d="M60,26 q26,-22 54,-2 q4,10 -4,16 q-24,-14 -46,2 q-8,-6 -4,-16 Z" fill="url(#figLeft)"/>
+    <!-- head -->
+    <circle cx="90" cy="40" r="20" fill="url(#figLeft)"/>
+    <!-- body / robe -->
+    <path d="M55,150 Q60,80 90,64 Q120,80 130,150 Q95,168 55,150 Z" fill="url(#figLeft)"/>
+    <!-- raised arm holding conch -->
+    <path d="M108,72 Q140,66 158,48 Q166,44 172,50 Q176,56 168,60 Q146,78 116,86 Z" fill="url(#figLeft)"/>
+    <!-- conch shell -->
+    <path d="M158,36 Q180,30 198,44 Q206,50 200,58 Q192,64 180,58 Q166,52 158,36 Z" fill="#EDE3D0"/>
+    <path d="M170,44 q10,-4 20,2" stroke="#C9BB98" stroke-width="2" fill="none"/>
+    <!-- shoulder guard accent -->
+    <circle cx="60" cy="90" r="9" fill="#8A6BD1" opacity="0.7"/>
+  </g>
+
+  <!-- RIGHT FIGURE: Krishna, blue-toned silhouette with peacock feather, blowing a conch -->
+  <g transform="translate(700,30)">
+    <!-- peacock feather crest -->
+    <path d="M46,10 Q52,-14 66,4 Q60,14 46,10 Z" fill="#3FA796"/>
+    <circle cx="58" cy="0" r="4" fill="#3FA796"/>
+    <!-- head -->
+    <circle cx="60" cy="40" r="20" fill="url(#figRight)"/>
+    <!-- body / robe -->
+    <path d="M25,150 Q30,80 60,64 Q90,80 100,150 Q65,168 25,150 Z" fill="url(#figRight)"/>
+    <!-- raised arm holding conch (mirrored) -->
+    <path d="M42,72 Q10,66 -8,48 Q-16,44 -22,50 Q-26,56 -18,60 Q4,78 34,86 Z" fill="url(#figRight)"/>
+    <!-- conch shell -->
+    <path d="M-8,36 Q-30,30 -48,44 Q-56,50 -50,58 Q-42,64 -30,58 Q-16,52 -8,36 Z" fill="#EDE3D0"/>
+    <path d="M-20,44 q-10,-4 -20,2" stroke="#C9BB98" stroke-width="2" fill="none"/>
+    <!-- ornament accent -->
+    <circle cx="30" cy="90" r="9" fill="#F4A84A" opacity="0.8"/>
+  </g>
+
+  <!-- foreground silhouette ground -->
+  <path d="M0,196 Q300,182 600,196 T1200,192 V220 H0 Z" fill="#140F24"/>
+</svg>
+
+</div>
+
+<header>
+  <div class="brand">
+    <h1>Py Panchajanya</h1>
+    <span>Practice problems &middot; Python</span>
+  </div>
+  <div class="header-actions">
+    <div class="nav-tabs">
+      <button class="nav-tab active" id="tabSets" data-view="sets">Problem Sets</button>
+      <button class="nav-tab" id="tabCreate" data-view="create">Create a Problem</button>
+    </div>
+    <div class="progress-pill">
+      <div class="ring" id="progressRing" style="--pct:0"></div>
+      <span><b id="solvedCount">0</b> / <span id="totalCount">0</span> solved</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle">🌙 <span id="themeLabel">Dark</span></button>
+  </div>
+</header>
+
+<div id="view-sets" class="view active">
+  <div class="sets-intro">
+    <h2>Choose a problem set</h2>
+    <p>Pick a topic below. Each set has White, Yellow, and Black belt problems — work up through the belts as you get comfortable.</p>
+  </div>
+  <div class="sets-grid" id="setsGrid"></div>
+</div>
+
+<div id="view-workspace" class="view">
+  <div class="app-grid">
+    <div class="sidebar">
+      <div class="back-link" id="backToSets">&larr; All problem sets</div>
+      <div id="beltGroups"></div>
+    </div>
+    <div class="problem-panel" id="problemPanel"></div>
+    <div class="editor-panel">
+      <div class="editor-toolbar">
+        <div class="btn-row"><span class="fname" id="fname">solution.py</span></div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" id="resetBtn">Reset code</button>
+          <button class="btn btn-run" id="runBtn">Run tests</button>
+        </div>
+      </div>
+      <textarea id="editorArea"></textarea>
+      <div class="console" id="console">
+        <div class="console-head"><span class="cursor-blink"></span> CONSOLE</div>
+        <div class="console-empty" id="consoleEmpty">Loading the Python engine&hellip; this takes a few seconds the first time.</div>
+        <div id="consoleBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="view-create" class="view">
+  <div class="create-wrap">
+    <h2>Create a Problem</h2>
+    <p>Describe your problem idea and (optionally) a working solution. Claude will format it into the JSON our app uses. Copy the result and ask your teacher to add it to the right file in the GitHub repo.</p>
+
+    <div class="field">
+      <label>Which set does this belong in?</label>
+      <select id="cSet"></select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Belt / difficulty</label>
+        <select id="cBelt">
+          <option value="white">White belt (easy)</option>
+          <option value="yellow">Yellow belt (medium)</option>
+          <option value="black">Black belt (hard)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Problem title</label>
+        <input type="text" id="cTitle" placeholder="e.g. Count the Vowels">
+      </div>
+    </div>
+    <div class="field">
+      <label>Describe the problem</label>
+      <textarea id="cDescription" placeholder="e.g. Take a word as input and print how many vowels (a, e, i, o, u) it has."></textarea>
+    </div>
+    <div class="field">
+      <label>Your reference solution (optional, Python)</label>
+      <textarea id="cSolution" placeholder="def count_vowels(s):&#10;    ..."></textarea>
+    </div>
+    <button class="btn btn-run" id="formatBtn">Format with Claude</button>
+    <div class="output-box" id="createOutput" style="display:none;"></div>
+    <div class="btn-row" id="copyRow" style="display:none; margin-top:8px;">
+      <button class="btn btn-ghost" id="copyJsonBtn">Copy JSON</button>
+    </div>
+    <div class="create-note">
+      <b>How this gets published:</b> copy the JSON above, open the problem set's file in your GitHub repo (e.g. <code>sets/strings.json</code>), and add it as a new entry in the <code>problems</code> list. Ask a teacher to review it and commit the change — then it'll show up for everyone next time they open the app.
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+
+<script id="embedded-bundle" type="application/json">
+{"manifest": {"sets": [{"id": "input-output", "title": "Input/Output and Arithmetic", "icon": "\ud83d\udd22", "description": "Read input, do arithmetic, print results.", "file": "sets/input-output.json", "count": 5}, {"id": "conditionals", "title": "Conditionals", "icon": "\ud83d\udd00", "description": "if / elif / else decision making.", "file": "sets/conditionals.json", "count": 1}, {"id": "loops", "title": "Loops", "icon": "\ud83d\udd01", "description": "for / while loops and patterns.", "file": "sets/loops.json", "count": 3}, {"id": "strings", "title": "Strings", "icon": "\ud83d\udd24", "description": "Working with text.", "file": "sets/strings.json", "count": 2}, {"id": "lists", "title": "Lists", "icon": "\ud83d\udccb", "description": "Arrays and list algorithms.", "file": "sets/lists.json", "count": 2}, {"id": "misc-1", "title": "Misc. Problem Set 1", "icon": "\ud83c\udfb2", "description": "A grab-bag of extra challenges.", "file": "sets/misc-1.json", "count": 1}]}, "sets": {"input-output": {"id": "input-output", "title": "Input/Output and Arithmetic", "problems": [{"id": "greet-name", "title": "Jaya Shree Rama!", "belt": "white", "mode": "stdio", "statement": "Read a name from input and print a greeting in the exact form <code>Jaya Shree Rama, name!</code>", "examples": [{"input": "Hari", "output": "Jaya Shree Rama, Hari!"}], "constraints": ["The name is a single line with no spaces."], "starterCode": "name = input()\n# print the greeting here\n", "testCases": [{"stdin": ["Hari"], "expectedOutput": "Jaya Shree Rama, Hari!"}, {"stdin": ["Gita"], "expectedOutput": "Jaya Shree Rama, Gita!"}, {"stdin": ["Arjun"], "expectedOutput": "Jaya Shree Rama, Arjun!"}]}, {"id": "sum-two-numbers", "title": "Sum of Two Numbers", "belt": "white", "mode": "stdio", "statement": "Read two numbers, one per line, and print their sum.", "examples": [{"input": "3\n5", "output": "8"}], "constraints": ["Both inputs are whole numbers (integers)."], "starterCode": "a = int(input())\nb = int(input())\n# print the sum here\n", "testCases": [{"stdin": ["3", "5"], "expectedOutput": "8"}, {"stdin": ["10", "20"], "expectedOutput": "30"}, {"stdin": ["-2", "5"], "expectedOutput": "3"}]}, {"id": "multiply-by-5", "title": "Times Five", "belt": "white", "mode": "stdio", "statement": "Read a number and print that number multiplied by 5.", "examples": [{"input": "4", "output": "20"}], "constraints": ["The input is a whole number (integer)."], "starterCode": "n = int(input())\n# print n * 5 here\n", "testCases": [{"stdin": ["4"], "expectedOutput": "20"}, {"stdin": ["0"], "expectedOutput": "0"}, {"stdin": ["-3"], "expectedOutput": "-15"}]}, {"id": "supplementary-angle", "title": "Supplementary Angle", "belt": "yellow", "mode": "stdio", "statement": "Read an angle in degrees and print its supplementary angle. Two angles are supplementary when they add up to 180&deg;, so the answer is <code>180 - angle</code>.", "examples": [{"input": "60", "output": "120", "note": "60 + 120 = 180"}], "constraints": ["0 &le; angle &le; 180"], "starterCode": "angle = int(input())\n# print the supplementary angle here\n", "testCases": [{"stdin": ["60"], "expectedOutput": "120"}, {"stdin": ["90"], "expectedOutput": "90"}, {"stdin": ["170"], "expectedOutput": "10"}]}, {"id": "right-triangle-check", "title": "Right-Angled or Not?", "belt": "yellow", "mode": "stdio", "statement": "Read three whole numbers, the lengths of the three sides of a triangle (one per line, in any order). Print <code>True</code> if they form a right-angled triangle, and <code>False</code> otherwise. Tip: the sides might not be given with the longest one last &mdash; you may need to sort them first.", "examples": [{"input": "3\n4\n5", "output": "True"}, {"input": "3\n4\n6", "output": "False"}], "constraints": ["All three sides are positive integers."], "starterCode": "a = int(input())\nb = int(input())\nc = int(input())\n# print True or False here\n", "testCases": [{"stdin": ["3", "4", "5"], "expectedOutput": "True"}, {"stdin": ["3", "4", "6"], "expectedOutput": "False"}, {"stdin": ["6", "8", "10"], "expectedOutput": "True"}]}]}, "conditionals": {"id": "conditionals", "title": "Conditionals", "problems": [{"id": "keshava-madhava", "title": "Keshava-Madhava", "belt": "white", "mode": "function", "functionName": "keshava_madhava", "statement": "Our version of the classic Fizz-Buzz. Given a number <code>n</code>, return a list of strings for 1 to n. For multiples of 4 use <code>\"Keshava\"</code>, for multiples of 5 use <code>\"Madhava\"</code>, for multiples of both 4 and 5 use <code>\"Keshava-Madhava\"</code>, and otherwise use the number itself as a string.", "examples": [{"input": "n = 5", "output": "[\"1\", \"2\", \"3\", \"Keshava\", \"Madhava\"]"}], "constraints": ["1 &le; n &le; 1000"], "starterCode": "def keshava_madhava(n):\n    # Return a list of strings for 1..n following the rules above.\n    pass\n", "testCases": [{"args": [5], "expected": ["1", "2", "3", "Keshava", "Madhava"]}, {"args": [20], "expected": ["1", "2", "3", "Keshava", "Madhava", "6", "7", "Keshava", "9", "Madhava", "11", "Keshava", "13", "14", "Madhava", "Keshava", "17", "18", "19", "Keshava-Madhava"]}, {"args": [1], "expected": ["1"]}]}]}, "loops": {"id": "loops", "title": "Loops", "problems": [{"id": "print-evens", "title": "Print the Evens", "belt": "white", "mode": "stdio", "statement": "Read two integers, <code>start</code> and <code>end</code> (one per line), and print all even integers from start to end, both included, separated by single spaces on one line. If there are none, print nothing.", "examples": [{"input": "1\n10", "output": "2 4 6 8 10"}], "constraints": ["Exact spacing between numbers doesn't matter &mdash; we just check the numbers you print, in order."], "starterCode": "start = int(input())\nend = int(input())\n# print all even numbers from start to end, inclusive\n", "testCases": [{"stdin": ["1", "10"], "expectedOutput": "2 4 6 8 10"}, {"stdin": ["2", "2"], "expectedOutput": "2"}, {"stdin": ["5", "5"], "expectedOutput": ""}]}, {"id": "stars-in-our-eyes", "title": "Stars in Our Eyes", "belt": "white", "mode": "stdio", "statement": "Read an integer <code>n</code> and print <code>n</code> lines. Line <code>i</code> (starting at 1) should contain <code>i</code> stars separated by spaces.", "examples": [{"input": "1", "output": "*"}, {"input": "2", "output": "*\n* *"}], "constraints": ["1 &le; n &le; 20", "Exact spacing doesn't matter &mdash; we check the stars on each line, in order."], "starterCode": "n = int(input())\n# print the pattern described above\n", "testCases": [{"stdin": ["1"], "expectedOutput": "*"}, {"stdin": ["2"], "expectedOutput": "*\n* *"}, {"stdin": ["3"], "expectedOutput": "*\n* *\n* * *"}]}, {"id": "triangle-magic", "title": "Triangle Magic", "belt": "yellow", "mode": "stdio", "statement": "Read an integer <code>n</code> and print a number triangle: row <code>i</code> (starting at 1) contains the number <code>i</code> repeated <code>i</code> times.", "examples": [{"input": "3", "output": "1\n2 2\n3 3 3"}], "constraints": ["1 &le; n &le; 20", "Exact spacing/indentation doesn't matter &mdash; we only check the numbers on each line, in order."], "starterCode": "n = int(input())\n# print the number triangle described above\n", "testCases": [{"stdin": ["3"], "expectedOutput": "1\n2 2\n3 3 3"}, {"stdin": ["1"], "expectedOutput": "1"}, {"stdin": ["4"], "expectedOutput": "1\n2 2\n3 3 3\n4 4 4 4"}]}]}, "strings": {"id": "strings", "title": "Strings", "problems": [{"id": "reverse-string", "title": "Reverse a String", "belt": "white", "mode": "function", "functionName": "reverse_string", "statement": "Write a function that takes a string <code>s</code> and returns it reversed.", "examples": [{"input": "s = \"hello\"", "output": "\"olleh\""}, {"input": "s = \"Python\"", "output": "\"nohtyP\""}], "constraints": ["0 &le; length of s &le; 10<sup>4</sup>"], "starterCode": "def reverse_string(s):\n    # Return s reversed.\n    pass\n", "testCases": [{"args": ["hello"], "expected": "olleh"}, {"args": ["Python"], "expected": "nohtyP"}, {"args": [""], "expected": ""}]}, {"id": "palindrome", "title": "Palindrome Checker", "belt": "yellow", "mode": "function", "functionName": "is_palindrome", "statement": "Write a function that checks whether a string is a palindrome, ignoring letter case and spaces. Return <code>True</code> or <code>False</code>.", "examples": [{"input": "s = \"racecar\"", "output": "True"}, {"input": "s = \"A man a plan a canal Panama\"", "output": "True", "note": "Case and spaces are ignored"}, {"input": "s = \"hello\"", "output": "False"}], "constraints": ["0 &le; length of s &le; 10<sup>4</sup>"], "starterCode": "def is_palindrome(s):\n    # Return True if s reads the same forwards and backwards,\n    # ignoring case and spaces.\n    pass\n", "testCases": [{"args": ["racecar"], "expected": true}, {"args": ["hello"], "expected": false}, {"args": ["A man a plan a canal Panama"], "expected": true}]}]}, "lists": {"id": "lists", "title": "Lists", "problems": [{"id": "two-sum", "title": "Two Sum", "belt": "yellow", "mode": "function", "functionName": "two_sum", "statement": "Given a list of numbers <code>nums</code> and a target number <code>target</code>, return the indices of the two numbers that add up to target. Assume exactly one solution exists, and you can't use the same element twice.", "examples": [{"input": "nums = [2, 7, 11, 15], target = 9", "output": "[0, 1]", "note": "nums[0] + nums[1] == 9"}, {"input": "nums = [3, 2, 4], target = 6", "output": "[1, 2]"}], "constraints": ["2 &le; length of nums &le; 10<sup>4</sup>", "Exactly one valid answer exists"], "starterCode": "def two_sum(nums, target):\n    # Return a list of the two indices whose values add up to target.\n    pass\n", "testCases": [{"args": [[2, 7, 11, 15], 9], "expected": [0, 1]}, {"args": [[3, 2, 4], 6], "expected": [1, 2]}, {"args": [[3, 3], 6], "expected": [0, 1]}]}, {"id": "max-subarray", "title": "Maximum Subarray Sum", "belt": "black", "mode": "function", "functionName": "max_subarray", "statement": "Given a list of integers <code>nums</code>, find the contiguous subarray (containing at least one number) with the largest sum, and return that sum.", "examples": [{"input": "nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]", "output": "6", "note": "[4, -1, 2, 1] has the largest sum"}], "constraints": ["1 &le; length of nums &le; 10<sup>5</sup>"], "starterCode": "def max_subarray(nums):\n    # Return the largest possible sum of a contiguous subarray of nums.\n    pass\n", "testCases": [{"args": [[-2, 1, -3, 4, -1, 2, 1, -5, 4]], "expected": 6}, {"args": [[1]], "expected": 1}, {"args": [[5, 4, -1, 7, 8]], "expected": 23}]}]}, "misc-1": {"id": "misc-1", "title": "Misc. Problem Set 1", "problems": [{"id": "binary-search", "title": "Binary Search", "belt": "black", "mode": "function", "functionName": "binary_search", "statement": "Given a sorted list <code>nums</code> and a value <code>target</code>, return the index of target in nums, or <code>-1</code> if it isn't present. Do it in O(log n) time, not with a plain linear scan.", "examples": [{"input": "nums = [1, 3, 5, 7, 9, 11], target = 7", "output": "3"}, {"input": "nums = [1, 2, 3], target = 5", "output": "-1"}], "constraints": ["nums is sorted ascending", "1 &le; length of nums &le; 10<sup>5</sup>"], "starterCode": "def binary_search(nums, target):\n    # Return the index of target in the sorted list nums, or -1.\n    pass\n", "testCases": [{"args": [[1, 3, 5, 7, 9, 11], 7], "expected": 3}, {"args": [[1, 2, 3], 5], "expected": -1}, {"args": [[1], 1], "expected": 0}]}]}}}
+</script>
+
+<script>
+/* =====================================================================
+   DATA LOADING
+   Tries to fetch manifest.json + sets/<id>.json relative to this page
+   (works once hosted on GitHub Pages next to this file). Falls back to
+   the bundle embedded in the page (for offline/preview use, and to
+   guarantee the app always has something to show).
+===================================================================== */
+const DATA_BASE_URL = ""; // e.g. "https://raw.githubusercontent.com/you/repo/main/" — leave blank to use relative paths
+
+let EMBEDDED = {};
+try{
+  EMBEDDED = JSON.parse(document.getElementById("embedded-bundle").textContent);
+}catch(e){ EMBEDDED = { manifest: { sets: [] }, sets: {} }; }
+
+function dataUrl(path){
+  const base = DATA_BASE_URL || "./";
+  return base + path;
+}
+
+async function fetchJson(path){
+  try{
+    const res = await fetch(dataUrl(path), { cache: "no-store" });
+    if(!res.ok) throw new Error("bad status " + res.status);
+    return await res.json();
+  }catch(e){
+    return null;
+  }
+}
+
+let manifest = null;
+let setsCache = {}; // id -> {id, title, problems}
+
+async function getManifest(){
+  if(manifest) return manifest;
+  manifest = await fetchJson("manifest.json");
+  if(!manifest || !manifest.sets || !manifest.sets.length){
+    manifest = EMBEDDED.manifest;
+  }
+  return manifest;
+}
+
+async function getSet(setId){
+  if(setsCache[setId]) return setsCache[setId];
+  const entry = manifest.sets.find(s => s.id === setId);
+  let data = entry ? await fetchJson(entry.file) : null;
+  if(!data || !data.problems){
+    data = EMBEDDED.sets[setId];
+  }
+  setsCache[setId] = data;
+  return data;
+}
+
+/* =====================================================================
+   THEME
+===================================================================== */
+async function loadTheme(){
+  try{
+    const r = await window.storage.get("theme");
+    return r ? r.value : "dark";
+  }catch(e){ return "dark"; }
+}
+async function saveTheme(t){
+  try{ await window.storage.set("theme", t); }catch(e){}
+}
+function applyTheme(t){
+  document.documentElement.dataset.theme = t;
+  document.getElementById("themeLabel").textContent = t === "dark" ? "Dark" : "Light";
+  document.getElementById("themeToggle").firstChild.textContent = (t === "dark" ? "🌙 " : "☀️ ");
+  if(cm) cm.setOption("theme", t === "dark" ? "dracula" : "eclipse");
+}
+
+/* =====================================================================
+   STATE + PERSISTENCE
+===================================================================== */
+let currentSetId = null;
+let currentSet = null;
+let currentProblem = null;
+let cm = null;
+let pyodideReady = false;
+let pyodide = null;
+
+async function loadSolved(){
+  try{
+    const r = await window.storage.get("solved-set");
+    return r ? JSON.parse(r.value) : {};
+  }catch(e){ return {}; }
+}
+async function saveSolved(){ try{ await window.storage.set("solved-set", JSON.stringify(solvedMap)); }catch(e){} }
+async function loadDraft(id){
+  try{ const r = await window.storage.get("draft:" + id); return r ? r.value : null; }catch(e){ return null; }
+}
+async function saveDraft(id, code){ try{ await window.storage.set("draft:" + id, code); }catch(e){} }
+
+let solvedMap = {};
+
+/* =====================================================================
+   VIEW ROUTING
+===================================================================== */
+function showView(name){
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-" + name).classList.add("active");
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.toggle("active", t.dataset.view === name));
+}
+
+/* =====================================================================
+   SETS GRID (landing)
+===================================================================== */
+async function renderSetsGrid(){
+  const m = await getManifest();
+  const grid = document.getElementById("setsGrid");
+  grid.innerHTML = "";
+  m.sets.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "set-card";
+    card.innerHTML = `<span class="icon">${s.icon || "📘"}</span><h3>${s.title}</h3><p>${s.description || ""}</p><div class="count">${s.count != null ? s.count + " problems" : ""}</div>`;
+    card.addEventListener("click", () => openSet(s.id));
+    grid.appendChild(card);
+  });
+  updateProgressPill();
+}
+
+/* Progress shown in the header is scoped to whatever the student is
+   currently looking at: the problems in the open set, or (on the
+   landing screen) every problem across every set. */
+function updateProgressPill(){
+  let total, solvedCount;
+  if(currentSetId && currentSet){
+    total = currentSet.problems.length;
+    solvedCount = currentSet.problems.filter(p => solvedMap[p.id]).length;
+  } else {
+    total = (manifest && manifest.sets) ? manifest.sets.reduce((sum, s) => sum + (s.count || 0), 0) : 0;
+    solvedCount = Object.values(solvedMap).filter(Boolean).length;
+  }
+  document.getElementById("solvedCount").textContent = solvedCount;
+  document.getElementById("totalCount").textContent = total;
+  const pct = total ? Math.round(100 * solvedCount / total) : 0;
+  document.getElementById("progressRing").style.setProperty("--pct", pct);
+}
+
+async function openSet(setId){
+  const data = await getSet(setId);
+  if(!data || !data.problems || !data.problems.length){
+    alert("Couldn't load that problem set. Check your connection, or that the file exists.");
+    return;
+  }
+  currentSetId = setId;
+  currentSet = data;
+  showView("workspace");
+  renderBeltGroups();
+  updateProgressPill();
+  await selectProblem(data.problems[0].id);
+}
+
+/* =====================================================================
+   SIDEBAR (belt groups within current set)
+===================================================================== */
+function renderBeltGroups(){
+  const container = document.getElementById("beltGroups");
+  container.innerHTML = "";
+  const beltNames = { white: "White Belt", yellow: "Yellow Belt", black: "Black Belt" };
+  ["white", "yellow", "black"].forEach(belt => {
+    const items = currentSet.problems.filter(p => p.belt === belt);
+    if(!items.length) return;
+    const h = document.createElement("h2");
+    h.textContent = beltNames[belt];
+    container.appendChild(h);
+    items.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "problem-item" + (currentProblem && p.id === currentProblem.id ? " active" : "") + (solvedMap[p.id] ? " solved" : "");
+      div.innerHTML = `<span class="belt-tag ${belt}"></span><span class="name">${p.title}</span><span class="check">&#10003;</span>`;
+      div.addEventListener("click", () => selectProblem(p.id));
+      container.appendChild(div);
+    });
+  });
+}
+
+/* =====================================================================
+   PROBLEM PANEL
+===================================================================== */
+function renderProblemPanel(p){
+  const beltLabel = { white: "White belt &middot; Easy", yellow: "Yellow belt &middot; Medium", black: "Black belt &middot; Hard" }[p.belt];
+  let html = `<div class="belt-badge ${p.belt}">${beltLabel}</div>`;
+  html += `<h2>${p.title}</h2><p>${p.statement}</p><h3>Examples</h3>`;
+  (p.examples || []).forEach((ex, i) => {
+    html += `<div class="example-card"><div class="lbl">Example ${i+1}</div>Input: ${ex.input}<br>Output: ${ex.output}${ex.note ? `<br><span style="color:var(--ink-soft)">${ex.note}</span>` : ""}</div>`;
+  });
+  if(p.constraints && p.constraints.length){
+    html += `<h3>Constraints</h3><ul class="constraints">`;
+    p.constraints.forEach(c => html += `<li>${c}</li>`);
+    html += `</ul>`;
+  }
+  document.getElementById("problemPanel").innerHTML = html;
+}
+
+/* =====================================================================
+   PROBLEM SELECTION
+===================================================================== */
+async function selectProblem(id){
+  const p = currentSet.problems.find(x => x.id === id);
+  if(!p) return;
+  currentProblem = p;
+  renderProblemPanel(p);
+  renderBeltGroups();
+  document.getElementById("fname").textContent = (p.functionName || p.id) + ".py";
+  const draft = await loadDraft(p.id);
+  cm.setValue(draft !== null ? draft : p.starterCode);
+  resetConsole();
+}
+
+function resetConsole(){
+  document.getElementById("consoleBody").innerHTML = "";
+  const empty = document.getElementById("consoleEmpty");
+  empty.style.display = "block";
+  empty.textContent = pyodideReady ? "Run your code to see test results here." : "Loading the Python engine\u2026 this takes a few seconds the first time.";
+}
+
+/* =====================================================================
+   EDITOR
+===================================================================== */
+function setupEditor(){
+  cm = CodeMirror.fromTextArea(document.getElementById("editorArea"), {
+    mode: "python",
+    theme: "dracula",
+    lineNumbers: true,
+    indentUnit: 4,
+    tabSize: 4,
+    indentWithTabs: false,
+    extraKeys: { "Tab": cm => cm.replaceSelection("    ") }
+  });
+  cm.setSize("100%", "100%");
+}
+
+/* =====================================================================
+   PYODIDE
+===================================================================== */
+async function setupPyodide(){
+  try{
+    pyodide = await loadPyodide();
+    pyodide.runPython("import builtins\n__orig_input = builtins.input");
+    pyodideReady = true;
+    resetConsole();
+    document.getElementById("runBtn").disabled = false;
+  }catch(e){
+    document.getElementById("consoleEmpty").textContent = "Couldn't load the Python engine. Check your connection and reload the page.";
+  }
+}
+
+/* =====================================================================
+   TEST RUNNER
+===================================================================== */
+function pyRepr(jsVal){
+  if(typeof jsVal === "string") return JSON.stringify(jsVal);
+  if(typeof jsVal === "boolean") return jsVal ? "True" : "False";
+  if(Array.isArray(jsVal)) return "[" + jsVal.map(pyRepr).join(", ") + "]";
+  if(jsVal === null || jsVal === undefined) return "None";
+  return String(jsVal);
+}
+function deepEqual(a, b){ return JSON.stringify(a) === JSON.stringify(b); }
+
+function tokenizeOutput(text){
+  let lines = String(text).replace(/\r\n/g, "\n").split("\n");
+  while(lines.length && lines[lines.length - 1].trim() === "") lines.pop();
+  return lines.map(l => l.trim().split(/\s+/).filter(Boolean));
+}
+function stdioEqual(actual, expected){
+  const a = tokenizeOutput(actual), e = tokenizeOutput(expected);
+  if(a.length !== e.length) return false;
+  for(let i = 0; i < a.length; i++){
+    if(a[i].length !== e[i].length) return false;
+    for(let j = 0; j < a[i].length; j++) if(a[i][j] !== e[i][j]) return false;
+  }
+  return true;
+}
+
+async function runFunctionTests(code){
+  let rows = "", passCount = 0;
+  const total = currentProblem.testCases.length;
+  pyodide.runPython("import json");
+  pyodide.runPython(code);
+  const fn = pyodide.globals.get(currentProblem.functionName);
+  if(typeof fn !== "function"){
+    throw new Error(`No function named "${currentProblem.functionName}" was found. Keep the original function name.`);
+  }
+  for(let i = 0; i < total; i++){
+    const tc = currentProblem.testCases[i];
+    let resultJs, errText = null;
+    try{
+      const pyArgs = tc.args.map(a => pyodide.toPy(a));
+      const pyResult = fn(...pyArgs);
+      resultJs = (pyResult && typeof pyResult.toJs === "function")
+        ? pyResult.toJs({ dict_converter: Object.fromEntries })
+        : pyResult;
+      if(pyResult && typeof pyResult.destroy === "function") pyResult.destroy();
+    }catch(err){
+      errText = err.message.split("\n").slice(-2).join(" ").trim();
+    }
+    const argsRepr = tc.args.map(pyRepr).join(", ");
+    if(errText){
+      rows += `<div class="test-row"><span class="test-icon fail">&#10007;</span><div class="test-detail"><b>Test ${i+1}</b> &mdash; ${currentProblem.functionName}(${argsRepr})<div class="diff">Error: ${errText}</div></div></div>`;
+    } else if(deepEqual(resultJs, tc.expected)){
+      passCount++;
+      rows += `<div class="test-row"><span class="test-icon pass">&#10003;</span><div class="test-detail"><b>Test ${i+1}</b> &mdash; ${currentProblem.functionName}(${argsRepr}) &rarr; ${pyRepr(resultJs)}</div></div>`;
+    } else {
+      rows += `<div class="test-row"><span class="test-icon fail">&#10007;</span><div class="test-detail"><b>Test ${i+1}</b> &mdash; ${currentProblem.functionName}(${argsRepr})<div class="diff">Expected ${pyRepr(tc.expected)}, got ${pyRepr(resultJs)}</div></div></div>`;
+    }
+  }
+  fn.destroy();
+  return { rows, passCount, total };
+}
+
+async function runStdioTests(code){
+  let rows = "", passCount = 0;
+  const total = currentProblem.testCases.length;
+  pyodide.globals.set("__student_code", code);
+  for(let i = 0; i < total; i++){
+    const tc = currentProblem.testCases[i];
+    pyodide.globals.set("__stdin_lines", tc.stdin);
+    let out = "", err = null;
+    try{
+      pyodide.runPython(`
+import io, builtins, contextlib
+__stdin_iter = iter(__stdin_lines)
+def __fake_input(prompt=""):
+    try:
+        return next(__stdin_iter)
+    except StopIteration:
+        raise EOFError("No more input available")
+builtins.input = __fake_input
+__stdout_buffer = io.StringIO()
+__stdout_error = None
+try:
+    with contextlib.redirect_stdout(__stdout_buffer):
+        exec(compile(__student_code, "solution.py", "exec"), {})
+except Exception as __e:
+    __stdout_error = str(__e)
+__stdout_result = __stdout_buffer.getvalue()
+builtins.input = __orig_input
+`);
+      out = pyodide.globals.get("__stdout_result");
+      err = pyodide.globals.get("__stdout_error");
+    }catch(e){
+      err = e.message.split("\n").slice(-2).join(" ").trim();
+    }
+    const stdinRepr = tc.stdin.join(", ");
+    if(err){
+      rows += `<div class="test-row"><span class="test-icon fail">&#10007;</span><div class="test-detail"><b>Test ${i+1}</b> &mdash; input: ${stdinRepr}<div class="diff">Error: ${err}</div></div></div>`;
+    } else if(stdioEqual(out, tc.expectedOutput)){
+      passCount++;
+      rows += `<div class="test-row"><span class="test-icon pass">&#10003;</span><div class="test-detail"><b>Test ${i+1}</b> &mdash; input: ${stdinRepr} &rarr; output matches</div></div>`;
+    } else {
+      rows += `<div class="test-row"><span class="test-icon fail">&#10007;</span><div class="test-detail"><b>Test ${i+1}</b> &mdash; input: ${stdinRepr}<div class="diff">Expected:\n${tc.expectedOutput}\nGot:\n${out}</div></div></div>`;
+    }
+  }
+  return { rows, passCount, total };
+}
+
+async function runTests(){
+  if(!pyodideReady) return;
+  const runBtn = document.getElementById("runBtn");
+  runBtn.disabled = true;
+  runBtn.textContent = "Running\u2026";
+  const consoleBody = document.getElementById("consoleBody");
+  document.getElementById("consoleEmpty").style.display = "none";
+  consoleBody.innerHTML = "";
+
+  const code = cm.getValue();
+  saveDraft(currentProblem.id, code);
+
+  try{
+    const result = currentProblem.mode === "stdio" ? await runStdioTests(code) : await runFunctionTests(code);
+    consoleBody.innerHTML = result.rows + `<div class="summary-line ${result.passCount === result.total ? 'pass' : 'fail'}">${result.passCount} / ${result.total} tests passed</div>`;
+    if(result.passCount === result.total){
+      solvedMap[currentProblem.id] = true;
+      await saveSolved();
+      renderBeltGroups();
+      updateProgressPill();
+    }
+  }catch(err){
+    const msg = String(err.message || err).split("\n").slice(-6).join("\n");
+    consoleBody.innerHTML = `<div class="console-error">${msg}</div>`;
+  }
+
+  runBtn.disabled = false;
+  runBtn.textContent = "Run tests";
+}
+
+/* =====================================================================
+   CREATE-A-PROBLEM (Claude-assisted formatting)
+===================================================================== */
+async function populateCreateSetOptions(){
+  const m = await getManifest();
+  const sel = document.getElementById("cSet");
+  sel.innerHTML = m.sets.map(s => `<option value="${s.id}">${s.title}</option>`).join("");
+}
+
+const SCHEMA_GUIDE = `You turn a rough problem idea into ONE JSON object for a kids' Python coding-practice app.
+
+Output ONLY the JSON object. No markdown fences, no commentary, no explanation before or after.
+
+The object must match exactly one of these two shapes:
+
+FUNCTION MODE (the student writes one function that returns a value):
+{
+  "id": "kebab-case-id",
+  "title": "Short Title",
+  "belt": "white" | "yellow" | "black",
+  "mode": "function",
+  "functionName": "snake_case_name",
+  "statement": "Problem statement as HTML-safe text, <code> tags allowed for inline code.",
+  "examples": [ { "input": "args = ...", "output": "...", "note": "optional" } ],
+  "constraints": ["optional bullet strings"],
+  "starterCode": "def snake_case_name(...):\\n    # helpful comment\\n    pass\\n",
+  "testCases": [ { "args": [ ... positional args ... ], "expected": <value> } ]
+}
+
+STDIO MODE (the student writes a full script using input()/print()):
+{
+  "id": "kebab-case-id",
+  "title": "Short Title",
+  "belt": "white" | "yellow" | "black",
+  "mode": "stdio",
+  "statement": "...",
+  "examples": [ { "input": "line1\\nline2", "output": "expected stdout" } ],
+  "constraints": ["optional"],
+  "starterCode": "# starter code with input() calls already written, logic left as a comment\\n",
+  "testCases": [ { "stdin": ["line1", "line2"], "expectedOutput": "expected stdout, use \\n for multiple lines" } ]
+}
+
+Rules:
+- Include at least 3 varied testCases (include an edge case).
+- If a reference solution is given, use it to compute the exact correct expected values/output for every test case — don't guess.
+- Pick "mode": "stdio" only if the description clearly involves reading input() / printing output directly; otherwise use "function".
+- Keep statement concise (2-4 sentences).`;
+
+async function callClaudeFormat(userPrompt){
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-6",
+      max_tokens: 1000,
+      messages: [
+        { role: "user", content: SCHEMA_GUIDE + "\n\n---\n\n" + userPrompt }
+      ]
+    })
+  });
+  const data = await response.json();
+  const text = (data.content || []).map(b => b.text || "").join("\n");
+  return text.replace(/```json/g, "").replace(/```/g, "").trim();
+}
+
+async function handleFormatClick(){
+  const btn = document.getElementById("formatBtn");
+  const out = document.getElementById("createOutput");
+  const copyRow = document.getElementById("copyRow");
+  const title = document.getElementById("cTitle").value.trim();
+  const belt = document.getElementById("cBelt").value;
+  const setTitle = document.getElementById("cSet").selectedOptions[0]?.textContent || "";
+  const description = document.getElementById("cDescription").value.trim();
+  const solution = document.getElementById("cSolution").value.trim();
+
+  if(!description){
+    alert("Please describe the problem first.");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Formatting\u2026";
+  out.style.display = "block";
+  out.textContent = "Asking Claude to format this\u2026";
+  copyRow.style.display = "none";
+
+  const userPrompt = `Problem set: ${setTitle}\nBelt: ${belt}\nTitle: ${title || "(pick a short title)"}\nDescription: ${description}\nReference solution:\n${solution || "(none given — write a correct one yourself to derive test outputs)"}`;
+
+  try{
+    const jsonText = await callClaudeFormat(userPrompt);
+    JSON.parse(jsonText); // validate
+    out.textContent = jsonText;
+    copyRow.style.display = "flex";
+  }catch(e){
+    out.textContent = "Something went wrong formatting this (" + e.message + "). You can try again, or tweak the description and retry.";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "Format with Claude";
+}
+
+/* =====================================================================
+   INIT
+===================================================================== */
+async function init(){
+  setupEditor();
+  const theme = await loadTheme();
+  applyTheme(theme);
+
+  solvedMap = await loadSolved();
+  await getManifest();
+  await renderSetsGrid();
+  await populateCreateSetOptions();
+
+  document.getElementById("runBtn").disabled = true;
+  document.getElementById("runBtn").addEventListener("click", runTests);
+  document.getElementById("resetBtn").addEventListener("click", async () => {
+    cm.setValue(currentProblem.starterCode);
+    await saveDraft(currentProblem.id, currentProblem.starterCode);
+    resetConsole();
+  });
+  document.getElementById("backToSets").addEventListener("click", async () => {
+    currentSetId = null;
+    currentSet = null;
+    showView("sets");
+    await renderSetsGrid();
+  });
+  document.querySelectorAll(".nav-tab").forEach(tab => {
+    tab.addEventListener("click", async () => {
+      if(tab.dataset.view === "sets"){
+        currentSetId = null;
+        currentSet = null;
+        await renderSetsGrid();
+      }
+      showView(tab.dataset.view);
+    });
+  });
+  document.getElementById("themeToggle").addEventListener("click", async () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(next);
+    await saveTheme(next);
+  });
+  document.getElementById("formatBtn").addEventListener("click", handleFormatClick);
+  document.getElementById("copyJsonBtn").addEventListener("click", () => {
+    navigator.clipboard.writeText(document.getElementById("createOutput").textContent);
+    const b = document.getElementById("copyJsonBtn");
+    const orig = b.textContent;
+    b.textContent = "Copied!";
+    setTimeout(() => { b.textContent = orig; }, 1400);
+  });
+
+  setupPyodide();
+}
+
+init();
+
+</script>
+</body>
+</html>
