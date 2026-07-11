@@ -11,7 +11,7 @@
       "examples": [
         {
           "input": "Hari",
-          "output": "Jaya Shree Rama, Hari!"
+          "output": "Jaya Shree Rama, Hari !"
         }
       ],
       "constraints": [
@@ -23,19 +23,19 @@
           "stdin": [
             "Hari"
           ],
-          "expectedOutput": "Jaya Shree Rama, Hari!"
+          "expectedOutput": "Jaya Shree Rama, Hari !"
         },
         {
           "stdin": [
             "Gita"
           ],
-          "expectedOutput": "Jaya Shree Rama, Gita!"
+          "expectedOutput": "Jaya Shree Rama, Gita !"
         },
         {
           "stdin": [
             "Arjun"
           ],
-          "expectedOutput": "Jaya Shree Rama, Arjun!"
+          "expectedOutput": "Jaya Shree Rama, Arjun !"
         }
       ]
     },
