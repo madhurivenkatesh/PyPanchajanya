@@ -70,8 +70,13 @@
   .banner-wrap{
     background:var(--console-bg);
     border-bottom:1px solid var(--console-border);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
   }
-  .banner-svg{ display:block; width:100%; height:auto; max-height:150px; }
+  .banner-svg{ display:block; width:56%; height:auto; max-width:900px; }
+  @media (max-width: 700px){ .banner-svg{ width:88%; } }
 
   /* ---------- Header ---------- */
   header{
@@ -366,7 +371,7 @@
 <body>
 
 <div class="banner-wrap">
-<img class="banner-svg" src="img/banner_panchajanya.png" alt="Krishna and Arjuna blowing the Panchajanya and Devadatta conches" style="width:100%; height:auto; max-height:220px; object-fit:cover; display:block;">
+<img class="banner-svg" src="img/banner_panchajanya.png" alt="Krishna and Arjuna blowing the Panchajanya and Devadatta conches">
 </div>
 
 <header>
