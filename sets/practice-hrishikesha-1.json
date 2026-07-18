@@ -1,0 +1,160 @@
+{
+  "id": "practice-hrishikesha-1",
+  "title": "Practice Set \u2014 White Belt",
+  "problems": [
+    {
+      "id": "vowel-count",
+      "title": "Vowel Count",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Count how many vowels (a, e, i, o, u &mdash; case-insensitive) appear in a word.",
+      "examples": [
+        {
+          "input": "Programming",
+          "output": "3"
+        }
+      ],
+      "constraints": [
+        "The input is a single word with no spaces."
+      ],
+      "starterCode": "word = input()\n# count and print the vowels here\n",
+      "testCases": [
+        {
+          "stdin": [
+            "Programming"
+          ],
+          "expectedOutput": "3"
+        },
+        {
+          "stdin": [
+            "xyz"
+          ],
+          "expectedOutput": "0"
+        },
+        {
+          "stdin": [
+            "AEIOUaeiou"
+          ],
+          "expectedOutput": "10"
+        }
+      ]
+    },
+    {
+      "id": "digit-sum",
+      "title": "Digit Sum",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Add up the digits of a positive integer.",
+      "examples": [
+        {
+          "input": "4931",
+          "output": "17"
+        }
+      ],
+      "constraints": [
+        "The input is a positive integer."
+      ],
+      "starterCode": "n = input()\n# sum the digits and print the result\n",
+      "testCases": [
+        {
+          "stdin": [
+            "4931"
+          ],
+          "expectedOutput": "17"
+        },
+        {
+          "stdin": [
+            "5"
+          ],
+          "expectedOutput": "5"
+        },
+        {
+          "stdin": [
+            "1000"
+          ],
+          "expectedOutput": "1"
+        }
+      ]
+    },
+    {
+      "id": "speed-checker",
+      "title": "Speed Checker",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "A car travels a given distance in a given time. If its average speed is over 60 km/h, it's speeding.",
+      "examples": [
+        {
+          "input": "180\n2",
+          "output": "Speeding"
+        }
+      ],
+      "constraints": [
+        "Distance and time are positive numbers."
+      ],
+      "starterCode": "distance = float(input())\ntime = float(input())\n# print \"Speeding\" or \"Safe\"\n",
+      "testCases": [
+        {
+          "stdin": [
+            "180",
+            "2"
+          ],
+          "expectedOutput": "Speeding"
+        },
+        {
+          "stdin": [
+            "60",
+            "1"
+          ],
+          "expectedOutput": "Safe"
+        },
+        {
+          "stdin": [
+            "61",
+            "1"
+          ],
+          "expectedOutput": "Speeding"
+        }
+      ]
+    },
+    {
+      "id": "anagram-checker",
+      "title": "Anagram Checker",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Two words are anagrams if one can be rearranged into the other (ignore case).",
+      "examples": [
+        {
+          "input": "listen\nsilent",
+          "output": "Yes"
+        }
+      ],
+      "constraints": [
+        "Both words contain letters only, no spaces."
+      ],
+      "starterCode": "a = input()\nb = input()\n# print \"Yes\" or \"No\"\n",
+      "testCases": [
+        {
+          "stdin": [
+            "listen",
+            "silent"
+          ],
+          "expectedOutput": "Yes"
+        },
+        {
+          "stdin": [
+            "hello",
+            "world"
+          ],
+          "expectedOutput": "No"
+        },
+        {
+          "stdin": [
+            "Night",
+            "thing"
+          ],
+          "expectedOutput": "Yes"
+        }
+      ]
+    }
+  ]
+}

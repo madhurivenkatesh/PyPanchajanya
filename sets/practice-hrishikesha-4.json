@@ -1,0 +1,173 @@
+{
+  "id": "practice-hrishikesha-4",
+  "title": "Practice-Hrishikesha-4",
+  "problems": [
+    {
+      "id": "matrix-rotation",
+      "title": "Matrix Rotation",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "Given an n&times;n matrix, rotate it 90 degrees clockwise and print the result, one row per line, space-separated.",
+      "examples": [
+        {
+          "input": "3\n1 2 3\n4 5 6\n7 8 9",
+          "output": "7 4 1\n8 5 2\n9 6 3"
+        }
+      ],
+      "constraints": [
+        "1 &le; n &le; 20"
+      ],
+      "starterCode": "n = int(input())\ngrid = [list(map(int, input().split())) for _ in range(n)]\n# rotate 90 degrees clockwise and print each row\n",
+      "testCases": [
+        {
+          "stdin": [
+            "3",
+            "1 2 3",
+            "4 5 6",
+            "7 8 9"
+          ],
+          "expectedOutput": "7 4 1\n8 5 2\n9 6 3"
+        },
+        {
+          "stdin": [
+            "2",
+            "1 2",
+            "3 4"
+          ],
+          "expectedOutput": "3 1\n4 2"
+        },
+        {
+          "stdin": [
+            "1",
+            "5"
+          ],
+          "expectedOutput": "5"
+        }
+      ]
+    },
+    {
+      "id": "circular-shift",
+      "title": "Circular Shift",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "Given a string and a shift amount k, right-shift the string circularly by k positions (the last k characters move to the front). If k is larger than the string's length, use <code>k % len(s)</code>.",
+      "examples": [
+        {
+          "input": "abcdef\n2",
+          "output": "efabcd"
+        }
+      ],
+      "constraints": [
+        "The string is non-empty."
+      ],
+      "starterCode": "s = input()\nk = int(input())\n# right circular shift by k and print the result\n",
+      "testCases": [
+        {
+          "stdin": [
+            "abcdef",
+            "2"
+          ],
+          "expectedOutput": "efabcd"
+        },
+        {
+          "stdin": [
+            "hello",
+            "1"
+          ],
+          "expectedOutput": "ohell"
+        },
+        {
+          "stdin": [
+            "xyz",
+            "4"
+          ],
+          "expectedOutput": "zxy"
+        }
+      ]
+    },
+    {
+      "id": "largest-connected-island",
+      "title": "Largest Connected Island",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "Given a grid of 0's and 1's, find the size of the largest group of 1's that are connected up/down/left/right (an \"island\").",
+      "examples": [
+        {
+          "input": "3 5\n11010\n11100\n00101",
+          "output": "6"
+        }
+      ],
+      "constraints": [
+        "First line: rows and cols. Next `rows` lines: `cols` characters each, '0' or '1'."
+      ],
+      "starterCode": "rows, cols = map(int, input().split())\ngrid = [input() for _ in range(rows)]\n# flood-fill each unvisited '1' and track the largest island size\n",
+      "testCases": [
+        {
+          "stdin": [
+            "3 5",
+            "11010",
+            "11100",
+            "00101"
+          ],
+          "expectedOutput": "6"
+        },
+        {
+          "stdin": [
+            "3 3",
+            "111",
+            "010",
+            "111"
+          ],
+          "expectedOutput": "7"
+        },
+        {
+          "stdin": [
+            "3 3",
+            "101",
+            "000",
+            "101"
+          ],
+          "expectedOutput": "1"
+        }
+      ]
+    },
+    {
+      "id": "exponent-race",
+      "title": "Exponent Race",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "Compute <code>a<sup>b</sup> mod m</code>. A naive loop multiplying b times is O(b); fast (binary) exponentiation &mdash; squaring and halving the exponent each step &mdash; does it in O(log b). Try implementing fast exponentiation yourself rather than using Python's built-in <code>pow(a, b, m)</code>, to get the practice.",
+      "examples": [
+        {
+          "input": "2 10 1000",
+          "output": "24",
+          "note": "2^10 = 1024, 1024 mod 1000 = 24"
+        }
+      ],
+      "constraints": [
+        "0 &le; b can be large &mdash; a slow O(b) loop may time out on the largest test."
+      ],
+      "starterCode": "a, b, m = map(int, input().split())\n# compute (a ** b) % m efficiently and print it\n",
+      "testCases": [
+        {
+          "stdin": [
+            "2 10 1000"
+          ],
+          "expectedOutput": "24"
+        },
+        {
+          "stdin": [
+            "3 0 7"
+          ],
+          "expectedOutput": "1"
+        },
+        {
+          "stdin": [
+            "5 100000 97"
+          ],
+          "expectedOutput": "61"
+        }
+      ]
+    }
+  ]
+}

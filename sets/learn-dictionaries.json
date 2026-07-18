@@ -1,0 +1,129 @@
+{
+  "id": "learn-dictionaries",
+  "title": "Learn Dictionaries",
+  "problems": [
+    {
+      "id": "dict-basics-1",
+      "title": "Dictionary Basics \u2014 Creation & Printing",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Create a dictionary named <code>marks</code> mapping student names to their marks: Hari: 88, Keshava: 95, Madhava: 76, Yadava: 82, Damodara: 91. Then print the marks of Keshava, and print the marks of Yadava.",
+      "examples": [
+        {
+          "input": "(no input)",
+          "output": "95\n82"
+        }
+      ],
+      "constraints": [
+        "This problem takes no input.",
+        "The values above are fixed so your output can be checked exactly."
+      ],
+      "starterCode": "marks = {\"Hari\": 88, \"Keshava\": 95, \"Madhava\": 76, \"Yadava\": 82, \"Damodara\": 91}\n# print marks of Keshava\n\n# print marks of Yadava\n",
+      "testCases": [
+        {
+          "stdin": [],
+          "expectedOutput": "95\n82"
+        }
+      ]
+    },
+    {
+      "id": "dict-basics-2",
+      "title": "Iterate Over Dictionary Pairs",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Given the dictionary <code>{\"Raghava\": 98, \"Madhava\": 99, \"Keshava\": 44}</code>, iterate over its key-value pairs one by one and print each in the exact format <code>name---->marks</code> (four dashes, then a greater-than sign).",
+      "examples": [
+        {
+          "input": "(no input)",
+          "output": "Raghava---->98\nMadhava---->99\nKeshava---->44"
+        }
+      ],
+      "constraints": [
+        "This problem takes no input.",
+        "Print pairs in the order they appear in the dictionary."
+      ],
+      "starterCode": "marks = {\"Raghava\": 98, \"Madhava\": 99, \"Keshava\": 44}\n# loop over marks.items() and print each as name---->marks\n",
+      "testCases": [
+        {
+          "stdin": [],
+          "expectedOutput": "Raghava---->98\nMadhava---->99\nKeshava---->44"
+        }
+      ]
+    },
+    {
+      "id": "dict-basics-3",
+      "title": "Most Frequent Word (with a Dictionary)",
+      "belt": "yellow",
+      "mode": "stdio",
+      "statement": "Given a sentence, print the word that occurs the most. Use <code>str1.split()</code> and a dictionary to count occurrences. You can assume there's a single clear winner.",
+      "examples": [
+        {
+          "input": "rama rama sita rama lakshmana",
+          "output": "rama"
+        }
+      ],
+      "constraints": [
+        "Words are lowercase, separated by single spaces."
+      ],
+      "starterCode": "str1 = input()\n# build a word -> count dictionary, then print the most frequent word\n",
+      "testCases": [
+        {
+          "stdin": [
+            "rama rama sita rama lakshmana"
+          ],
+          "expectedOutput": "rama"
+        },
+        {
+          "stdin": [
+            "krishna arjuna krishna partha krishna"
+          ],
+          "expectedOutput": "krishna"
+        },
+        {
+          "stdin": [
+            "om shanti om shanti om"
+          ],
+          "expectedOutput": "om"
+        }
+      ]
+    },
+    {
+      "id": "bird-sanctuary",
+      "title": "Bird Sanctuary",
+      "belt": "yellow",
+      "mode": "stdio",
+      "statement": "Badrinarayana visits a bird sanctuary and spots many different birds. The input is a single line listing the birds he sighted, separated by commas (entries may have extra spaces around them). Print the most sighted bird and its count, separated by a space.",
+      "examples": [
+        {
+          "input": "swan,jungle-crow,swan,swan,peacock, peacock, swan, duck,swan.",
+          "output": "swan 5"
+        }
+      ],
+      "constraints": [
+        "Strip extra whitespace (and any trailing punctuation) from each entry before counting.",
+        "Assume a single clear winner."
+      ],
+      "starterCode": "line = input()\ntokens = [t.strip().rstrip(\".\") for t in line.split(\",\")]\n# count each bird and print \"bird count\" for the most sighted one\n",
+      "testCases": [
+        {
+          "stdin": [
+            "swan,jungle-crow,swan,swan,peacock, peacock, swan, duck,swan."
+          ],
+          "expectedOutput": "swan 5"
+        },
+        {
+          "stdin": [
+            "eagle,eagle,sparrow,eagle,sparrow"
+          ],
+          "expectedOutput": "eagle 3"
+        },
+        {
+          "stdin": [
+            "owl,owl,owl,owl"
+          ],
+          "expectedOutput": "owl 4"
+        }
+      ]
+    }
+  ]
+}

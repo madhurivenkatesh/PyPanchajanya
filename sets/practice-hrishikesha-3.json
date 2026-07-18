@@ -1,0 +1,175 @@
+{
+  "id": "practice-hrishikesha-3",
+  "title": "Practice Set \u2014 Black Belt",
+  "problems": [
+    {
+      "id": "balanced-brackets",
+      "title": "Balanced Brackets",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "Given a string containing only <code>( ) [ ] { }</code>, determine whether every bracket is properly opened and closed in the right order.",
+      "examples": [
+        {
+          "input": "([{}])",
+          "output": "Balanced"
+        },
+        {
+          "input": "([)]",
+          "output": "Not Balanced"
+        }
+      ],
+      "constraints": [
+        "The string contains only bracket characters."
+      ],
+      "starterCode": "s = input()\n# print \"Balanced\" or \"Not Balanced\"\n",
+      "testCases": [
+        {
+          "stdin": [
+            "([{}])"
+          ],
+          "expectedOutput": "Balanced"
+        },
+        {
+          "stdin": [
+            "([)]"
+          ],
+          "expectedOutput": "Not Balanced"
+        },
+        {
+          "stdin": [
+            "((]"
+          ],
+          "expectedOutput": "Not Balanced"
+        }
+      ]
+    },
+    {
+      "id": "primes-in-range",
+      "title": "Primes in Range",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "List all prime numbers between two bounds, inclusive.",
+      "examples": [
+        {
+          "input": "10 30",
+          "output": "11 13 17 19 23 29"
+        }
+      ],
+      "constraints": [
+        "1 &le; low &le; high &le; 10000",
+        "If there are none, print nothing."
+      ],
+      "starterCode": "low, high = map(int, input().split())\n# print the primes in [low, high], space-separated\n",
+      "testCases": [
+        {
+          "stdin": [
+            "10 30"
+          ],
+          "expectedOutput": "11 13 17 19 23 29"
+        },
+        {
+          "stdin": [
+            "2 2"
+          ],
+          "expectedOutput": "2"
+        },
+        {
+          "stdin": [
+            "14 16"
+          ],
+          "expectedOutput": ""
+        }
+      ]
+    },
+    {
+      "id": "spiral-print",
+      "title": "Spiral Print",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "Given an n&times;n grid, print its elements in clockwise spiral order starting from the top-left, as a single space-separated line.",
+      "examples": [
+        {
+          "input": "3\n1 2 3\n4 5 6\n7 8 9",
+          "output": "1 2 3 6 9 8 7 4 5"
+        }
+      ],
+      "constraints": [
+        "1 &le; n &le; 20",
+        "Exact spacing doesn't matter &mdash; we check the numbers in order."
+      ],
+      "starterCode": "n = int(input())\ngrid = [list(map(int, input().split())) for _ in range(n)]\n# print the elements in spiral order\n",
+      "testCases": [
+        {
+          "stdin": [
+            "3",
+            "1 2 3",
+            "4 5 6",
+            "7 8 9"
+          ],
+          "expectedOutput": "1 2 3 6 9 8 7 4 5"
+        },
+        {
+          "stdin": [
+            "1",
+            "5"
+          ],
+          "expectedOutput": "5"
+        },
+        {
+          "stdin": [
+            "2",
+            "1 2",
+            "3 4"
+          ],
+          "expectedOutput": "1 2 4 3"
+        }
+      ]
+    },
+    {
+      "id": "maze-reachable",
+      "title": "Maze Reachable",
+      "belt": "black",
+      "mode": "stdio",
+      "statement": "You're given an n&times;n grid. <code>#</code> is a wall, <code>.</code> is open floor, <code>S</code> is the start, <code>E</code> is the exit. Determine whether there's a path from S to E moving only up/down/left/right through open floor.",
+      "examples": [
+        {
+          "input": "4\nS..#\n.##.\n...#\n#.E.",
+          "output": "Reachable"
+        }
+      ],
+      "constraints": [
+        "Exactly one S and one E appear in the grid.",
+        "Hint: this is a plain BFS/DFS flood-fill from S \u2014 no backtracking needed."
+      ],
+      "starterCode": "n = int(input())\ngrid = [input() for _ in range(n)]\n# flood-fill from S and check whether E is reached; print \"Reachable\" or \"Not Reachable\"\n",
+      "testCases": [
+        {
+          "stdin": [
+            "4",
+            "S..#",
+            ".##.",
+            "...#",
+            "#.E."
+          ],
+          "expectedOutput": "Reachable"
+        },
+        {
+          "stdin": [
+            "2",
+            "S#",
+            "#E"
+          ],
+          "expectedOutput": "Not Reachable"
+        },
+        {
+          "stdin": [
+            "2",
+            "SE",
+            ".."
+          ],
+          "expectedOutput": "Reachable"
+        }
+      ]
+    }
+  ]
+}

@@ -47,6 +47,54 @@
       "description": "A grab-bag of extra challenges.",
       "file": "sets/misc-1.json",
       "count": 1
+    },
+    {
+      "id": "practice-hrishikesha-1",
+      "title": "Practice-Hrishikesha-1",
+      "icon": "\ud83c\udf31",
+      "description": "Warm-up problems: vowels, digits, simple checks.",
+      "file": "sets/practice-hrishikesha-1.json",
+      "count": 4
+    },
+    {
+      "id": "practice-hrishikesha-2",
+      "title": "Practice-Hrishikesha-2",
+      "icon": "\u26a1",
+      "description": "A step up: grades, matrices, word frequency.",
+      "file": "sets/practice-hrishikesha-2.json",
+      "count": 8
+    },
+    {
+      "id": "practice-hrishikesha-3",
+      "title": "Practice-Hrishikesha-3",
+      "icon": "\ud83e\udd4b",
+      "description": "The real challenge: brackets, primes, spirals, mazes.",
+      "file": "sets/practice-hrishikesha-3.json",
+      "count": 4
+    },
+    {
+      "id": "practice-hrishikesha-4",
+      "title": "Practice-Hrishikesha-4",
+      "icon": "\ud83c\udfaf",
+      "description": "Matrix rotation, circular shifts, islands, fast exponentiation.",
+      "file": "sets/practice-hrishikesha-4.json",
+      "count": 4
+    },
+    {
+      "id": "lists-beginner",
+      "title": "Lists \u2014 Beginner",
+      "icon": "\ud83d\udccb",
+      "description": "Create, append, insert, pop, index, and loop over lists.",
+      "file": "sets/lists-beginner.json",
+      "count": 4
+    },
+    {
+      "id": "learn-dictionaries",
+      "title": "Learn Dictionaries",
+      "icon": "\ud83d\udcd6",
+      "description": "Create dictionaries, iterate pairs, and count with them.",
+      "file": "sets/learn-dictionaries.json",
+      "count": 4
     }
   ]
 }

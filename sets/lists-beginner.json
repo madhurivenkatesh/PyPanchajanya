@@ -1,0 +1,112 @@
+{
+  "id": "lists-beginner",
+  "title": "Lists \u2014 Beginner",
+  "problems": [
+    {
+      "id": "list-basics-1",
+      "title": "List Basics",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Practice the fundamental list operations, printing and checking the list after each step:<br>1) Create a list containing \"Hari\", \"Keshava\", \"Madhava\", \"Yadava\" and print it.<br>2) Append \"Damodara\" and print the list.<br>3) Pop the last item and print the list.<br>4) Pop the first item and print the list.",
+      "examples": [
+        {
+          "input": "(no input)",
+          "output": "['Hari', 'Keshava', 'Madhava', 'Yadava']\n['Hari', 'Keshava', 'Madhava', 'Yadava', 'Damodara']\n['Hari', 'Keshava', 'Madhava', 'Yadava']\n['Keshava', 'Madhava', 'Yadava']"
+        }
+      ],
+      "constraints": [
+        "This problem takes no input &mdash; just print the list after each step, exactly as Python's print(list) shows it."
+      ],
+      "starterCode": "# 1. create the list and print it\nlst = [\"Hari\", \"Keshava\", \"Madhava\", \"Yadava\"]\nprint(lst)\n\n# 2. append \"Damodara\" and print the list\n\n# 3. pop the last item and print the list\n\n# 4. pop the first item and print the list\n",
+      "testCases": [
+        {
+          "stdin": [],
+          "expectedOutput": "['Hari', 'Keshava', 'Madhava', 'Yadava']\n['Hari', 'Keshava', 'Madhava', 'Yadava', 'Damodara']\n['Hari', 'Keshava', 'Madhava', 'Yadava']\n['Keshava', 'Madhava', 'Yadava']"
+        }
+      ]
+    },
+    {
+      "id": "list-basics-2",
+      "title": "List Basics 2",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "More list practice:<br>1) Create a list containing \"Hari\", \"Keshava\", \"Madhava\", \"Yadava\".<br>2) Insert \"Narasimha\" as the second item (right after \"Hari\") and print the list.<br>3) Append \"Rama\" and print the list.<br>4) Print only the first item.<br>5) Print the 3rd item.",
+      "examples": [
+        {
+          "input": "(no input)",
+          "output": "['Hari', 'Narasimha', 'Keshava', 'Madhava', 'Yadava']\n['Hari', 'Narasimha', 'Keshava', 'Madhava', 'Yadava', 'Rama']\nHari\nKeshava"
+        }
+      ],
+      "constraints": [
+        "This problem takes no input."
+      ],
+      "starterCode": "lst = [\"Hari\", \"Keshava\", \"Madhava\", \"Yadava\"]\n\n# insert \"Narasimha\" as the second item and print the list\n\n# append \"Rama\" and print the list\n\n# print the first item\n\n# print the 3rd item\n",
+      "testCases": [
+        {
+          "stdin": [],
+          "expectedOutput": "['Hari', 'Narasimha', 'Keshava', 'Madhava', 'Yadava']\n['Hari', 'Narasimha', 'Keshava', 'Madhava', 'Yadava', 'Rama']\nHari\nKeshava"
+        }
+      ]
+    },
+    {
+      "id": "list-basics-3",
+      "title": "List Basics 3",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Loops and lists:<br>1) Create a list containing \"Hari\", \"Keshava\", \"Madhava\", \"Yadava\". Using a loop, print each word one by one.<br>2) Create a list with elements 1, 2, 3, 4, 5. Using a loop, add 1 to each element, then print the resulting list.",
+      "examples": [
+        {
+          "input": "(no input)",
+          "output": "Hari\nKeshava\nMadhava\nYadava\n[2, 3, 4, 5, 6]"
+        }
+      ],
+      "constraints": [
+        "This problem takes no input."
+      ],
+      "starterCode": "words = [\"Hari\", \"Keshava\", \"Madhava\", \"Yadava\"]\n# loop through words and print each one\n\nnums = [1, 2, 3, 4, 5]\n# loop through nums, adding 1 to each element in place\n\n# print the final nums list\n",
+      "testCases": [
+        {
+          "stdin": [],
+          "expectedOutput": "Hari\nKeshava\nMadhava\nYadava\n[2, 3, 4, 5, 6]"
+        }
+      ]
+    },
+    {
+      "id": "list-basics-4",
+      "title": "Sentence to Word List",
+      "belt": "white",
+      "mode": "stdio",
+      "statement": "Given a sentence, create a list containing all the words in it (use <code>str1.split()</code>), then print the list with <code>print(word_list)</code>.",
+      "examples": [
+        {
+          "input": "Hari Om Tat Sat",
+          "output": "['Hari', 'Om', 'Tat', 'Sat']"
+        }
+      ],
+      "constraints": [
+        "Words are separated by single spaces."
+      ],
+      "starterCode": "str1 = input()\nword_list = str1.split()\nprint(word_list)\n",
+      "testCases": [
+        {
+          "stdin": [
+            "Hari Om Tat Sat"
+          ],
+          "expectedOutput": "['Hari', 'Om', 'Tat', 'Sat']"
+        },
+        {
+          "stdin": [
+            "the quick brown fox"
+          ],
+          "expectedOutput": "['the', 'quick', 'brown', 'fox']"
+        },
+        {
+          "stdin": [
+            "Krishna"
+          ],
+          "expectedOutput": "['Krishna']"
+        }
+      ]
+    }
+  ]
+}
